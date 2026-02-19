@@ -74,6 +74,10 @@ build_target() {
         )
     elif [ "$WINDOWS_ONLY" = true ]; then
         CMAKE_ARGS+=(
+			-DCMAKE_C_COMPILER=clang-cl
+            -DCMAKE_CXX_COMPILER=clang-cl
+            -DCMAKE_C_FLAGS="$(GET_WINDOWS_CLANG_TARGET_FLAG "${TARGET}") $(GET_WINDOWS_CLANG_CFLAGS "${TARGET}")"
+            -DCMAKE_CXX_FLAGS="$(GET_WINDOWS_CLANG_TARGET_FLAG "${TARGET}") $(GET_WINDOWS_CLANG_CFLAGS "${TARGET}") /EHsc"
             -DCMAKE_MSVC_RUNTIME_LIBRARY="MultiThreaded"
         )
     else
@@ -108,13 +112,10 @@ if [ "$ANDROID_ONLY" = true ]; then
         build_target "${TARGET}" "${ANDROID_ARCH[$i]}"
     done
 elif [ "$WINDOWS_ONLY" = true ]; then
-    for TARGET in "${WINDOWS_TARGETS[@]}"; do
-        echo "=========================================="
-        echo "타겟: ${TARGET}"
-        echo "=========================================="
-        
-        build_target "${TARGET}" ""
-    done
+    echo "=========================================="
+    echo "Target: ${WINDOWS_TARGET}"
+    echo "=========================================="
+    build_target "${WINDOWS_TARGET}" ""
 else
     for TARGET in "${LINUX_TARGETS[@]}"; do
         echo "=========================================="
