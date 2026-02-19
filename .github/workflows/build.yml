@@ -29,7 +29,7 @@ jobs:
         CC: clang-cl
         CXX: clang-cl
       run: |
-        ./build_all.sh -w
+        ./build_glslang.sh -w
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
@@ -58,7 +58,7 @@ jobs:
         CC: clang-cl
         CXX: clang-cl
       run: |
-        ./build_all.sh -wa
+        ./build_glslang.sh -wa
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
@@ -113,7 +113,7 @@ jobs:
     - name: Build all 
       shell: bash
       run: |
-        ./build_all.sh
+        ./build_glslang.sh
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
@@ -142,7 +142,7 @@ jobs:
         ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       shell: bash
       run: |
-        ./build_all.sh --android
+        ./build_glslang.sh --android
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v4
